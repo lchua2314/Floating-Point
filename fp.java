@@ -32,8 +32,45 @@ public class fp
 		FPNumber result = new FPNumber(0);
 
 		// Put your code in here!
-
-                //1. 
+                
+                //1. Handle exception values (NaN, zero, infinity)
+                if ( fa.isNaN() == true || fb.isNaN() == true )
+                {
+                    if ( fa.isNaN() == true )
+                    {
+                        result = fa;
+                        return result.asInt();
+                    }
+                    else
+                    {
+                        result = fb;
+                        return result.asInt();
+                    }
+                }
+                else if ( fa.isZero() == true || fb.isZero() == true) {
+                    if ( fa.isZero() == true ) {
+                        result = fb;
+                        return result.asInt();
+                    }
+                    else {
+                        result = fa;
+                        return result.asInt();
+                    }
+                }
+                else if ( fa.isInfinity() == true && fb.isInfinity() == true ) {
+                      if ( fa.s() == fb.s() ) {
+                          result = fa;
+                          return result.asInt();
+                      }
+                      else {
+                          //Setting result to NaN
+                          result.setE( 255 );
+                          result.setF( 1 );
+                          //Setting result's sign to either sign (fa's)
+                          result.setS( fa.s() );
+                          return result.asInt();
+                      }
+                }
                 
 		return result.asInt();
 	}
@@ -79,21 +116,33 @@ public class fp
                     }
                 }
                 else if ( fa.isInfinity() == true && fb.isInfinity() == true ) {
-                    
+                      if ( fa.s() == fb.s() ) {
+                          result = fa;
+                          return result.asInt();
+                      }
+                      else {
+                          //Setting result to NaN
+                          result.setE( 255 );
+                          result.setF( 1 );
+                          //Setting result's sign to either sign (fa's)
+                          result.setS( fa.s() );
+                          return result.asInt();
+                      }
                 }
+                
 		return result.asInt();
 	}
 
         //1. Handle exception values (NaN, zero, infinity)
-        public FPNumber checkExceptions(FPNumber fa, FPNumber fb)
+        public int checkExceptions(FPNumber fa, FPNumber fb)
         {
             if ( fa.isNaN() == true || fb.isNaN() == true )
             {
-                return fa;
+                return 1;
             }
             
             
-            return null;
+            return 1;
         }
         
 	// Here is some test code that one student had written...
