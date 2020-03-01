@@ -71,6 +71,16 @@ public class fp
                           return result.asInt();
                       }
                 }
+                else if ( fa.isInfinity() == true || fb.isInfinity() == true) {
+                    if ( fa.isInfinity() == true ) {
+                        result = fa;
+                        return result.asInt();
+                    }
+                    else {
+                        result = fb;
+                        return result.asInt();
+                    }
+                }
                 
 		return result.asInt();
 	}
@@ -128,6 +138,16 @@ public class fp
                           result.setS( fa.s() );
                           return result.asInt();
                       }
+                }
+                else if ( fa.isInfinity() == true || fb.isInfinity() == true) {
+                    if ( fa.isInfinity() == true ) {
+                        result = fa;
+                        return result.asInt();
+                    }
+                    else {
+                        result = fb;
+                        return result.asInt();
+                    }
                 }
                 
 		return result.asInt();
