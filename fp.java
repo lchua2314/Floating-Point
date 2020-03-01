@@ -16,6 +16,14 @@ public class fp
 		return "Lawrence Chua";
 	}
 
+        /**
+         * Converts two integers into floating point,
+         * adds the two values, then returns the new
+         * value as an integer.
+         * @param a First integer input
+         * @param b Second integer input
+         * @return Added number back as an integer.
+         */
 	public int add(int a, int b)
 	{
 		FPNumber fa = new FPNumber(a);
@@ -27,6 +35,14 @@ public class fp
 		return result.asInt();
 	}
 
+        /**
+         * Converts two integers into floating point,
+         * multiplies the two values, then returns the new
+         * value as an integer.
+         * @param a First integer input
+         * @param b Second integer input
+         * @return Multiplied number back as an integer.
+         */
 	public int mul(int a, int b)
 	{
 		FPNumber fa = new FPNumber(a);
@@ -47,6 +63,12 @@ public class fp
 
 		fp m = new fp();
 
+                //Prints out really long numbers
+                System.out.println(v24_25);
+                System.out.println(v_1875);
+                System.out.println(v5);
+                
+                //All test cases print out "0.0"
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");

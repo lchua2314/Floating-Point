@@ -29,8 +29,8 @@
 //    This changes the mantissa.
 //
 /**
- * WRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIITE DESSSSSSSSSSSSSSSSSC
- * @author Lawrence Chua
+ * Class helps fp.java with calculations
+ * @author Lawrence Chua?
  */
 class FPNumber
 {
