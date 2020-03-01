@@ -1,8 +1,9 @@
 // fp.java
 
 /**
- * WRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIITE DESSSSSSSSSSSSSSSSSC
- * @author Lawrence Chua
+ * Class that converts integers into floating point values, adds or multiplies
+ * them, then returns the new value as int.
+ * @author Lawrence Chua and Professor David Johannson
  */
 public class fp
 {
@@ -68,7 +69,7 @@ public class fp
                 System.out.println(v_1875);
                 System.out.println(v5);
                 
-                //All test cases print out "0.0"
+                //All test cases print out "0.0" because methods are not created yet.
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");

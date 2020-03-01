@@ -30,7 +30,7 @@
 //
 /**
  * Class helps fp.java with calculations
- * @author Lawrence Chua?
+ * @author Professor David Johannson and Lawrence Chua
  */
 class FPNumber
 {
