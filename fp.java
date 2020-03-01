@@ -82,6 +82,8 @@ public class fp
                     }
                 }
                 
+                //2. Sort numbers
+                
 		return result.asInt();
 	}
 
@@ -150,6 +152,9 @@ public class fp
                     }
                 }
                 
+                //2. Sort numbers
+                //Remember that denormalized number '0' is the only test case
+                
 		return result.asInt();
 	}
 
@@ -165,6 +170,10 @@ public class fp
             return 1;
         }
         
+        public boolean unitTest(  ) {
+            return false;
+        }
+        
 	// Here is some test code that one student had written...
 	public static void main(String[] args)
 	{
@@ -178,6 +187,11 @@ public class fp
                 System.out.println(v24_25);
                 System.out.println(v_1875);
                 System.out.println(v5);
+                
+                //Prints out values that are float
+                System.out.println(Float.intBitsToFloat(v24_25));
+                System.out.println(Float.intBitsToFloat(v_1875));
+                System.out.println(Float.intBitsToFloat(v5));
                 
                 //All test cases print out "0.0" because methods are not finished yet.
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
