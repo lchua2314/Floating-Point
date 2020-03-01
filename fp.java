@@ -33,6 +33,8 @@ public class fp
 
 		// Put your code in here!
 
+                //1. 
+                
 		return result.asInt();
 	}
 
@@ -51,10 +53,49 @@ public class fp
 		FPNumber result = new FPNumber(0);
 
 		// Put your code in here!
-
+                
+                //1. Handle exception values (NaN, zero, infinity)
+                if ( fa.isNaN() == true || fb.isNaN() == true )
+                {
+                    if ( fa.isNaN() == true )
+                    {
+                        result = fa;
+                        return result.asInt();
+                    }
+                    else
+                    {
+                        result = fb;
+                        return result.asInt();
+                    }
+                }
+                else if ( fa.isZero() == true || fb.isZero() == true) {
+                    if ( fa.isZero() == true ) {
+                        result = fb;
+                        return result.asInt();
+                    }
+                    else {
+                        result = fa;
+                        return result.asInt();
+                    }
+                }
+                else if ( fa.isInfinity() == true && fb.isInfinity() == true ) {
+                    
+                }
 		return result.asInt();
 	}
 
+        //1. Handle exception values (NaN, zero, infinity)
+        public FPNumber checkExceptions(FPNumber fa, FPNumber fb)
+        {
+            if ( fa.isNaN() == true || fb.isNaN() == true )
+            {
+                return fa;
+            }
+            
+            
+            return null;
+        }
+        
 	// Here is some test code that one student had written...
 	public static void main(String[] args)
 	{
@@ -69,7 +110,7 @@ public class fp
                 System.out.println(v_1875);
                 System.out.println(v5);
                 
-                //All test cases print out "0.0" because methods are not created yet.
+                //All test cases print out "0.0" because methods are not finished yet.
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");
