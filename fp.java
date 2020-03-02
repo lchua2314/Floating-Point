@@ -81,6 +81,9 @@ public class fp
                         return result.asInt();
                     }
                 }
+                else {
+                    System.out.println("No exceptions detected");
+                }
                 
                 //2. Sort numbers
                 
@@ -117,47 +120,64 @@ public class fp
                         return result.asInt();
                     }
                 }
+                else if ( fa.isZero() == true && fb.isInfinity() == true || 
+                        fb.isZero() == true && fa.isInfinity() == true ) {
+                    //Set result to NaN
+                    result.setE( 255 );
+                    result.setF( 12 );
+                    //Setting result's sign to either sign (fa's)
+                    result.setS( fa.s() );
+                    return result.asInt();
+                }
                 else if ( fa.isZero() == true || fb.isZero() == true) {
                     if ( fa.isZero() == true ) {
                         result = fb;
+                        //Setting sign of result
+                        if ( fa.s() == fb.s() ) {
+                            result.setS(1);
+                        }
+                        else {
+                            result.setS(-1);
+                        }
                         return result.asInt();
                     }
                     else {
                         result = fa;
+                        //Setting sign of result
+                        if ( fa.s() == fb.s() ) {
+                            result.setS(1);
+                        }
+                        else {
+                            result.setS(-1);
+                        }
                         return result.asInt();
                     }
                 }
-                else if ( fa.isInfinity() == true && fb.isInfinity() == true ) {
-                      if ( fa.s() == fb.s() ) {
-                          result = fa;
-                          return result.asInt();
-                      }
-                      else {
-                          //Setting result to NaN
-                          result.setE( 255 );
-                          result.setF( 12 );
-                          //Setting result's sign to either sign (fa's)
-                          result.setS( fa.s() );
-                          return result.asInt();
-                      }
-                }
-                else if ( fa.isInfinity() == true || fb.isInfinity() == true) {
-                    if ( fa.isInfinity() == true ) {
+                //XOR?
+                else if ( fa.isInfinity() == true || fb.isInfinity() == true ) {
                         result = fa;
+                        //Setting sign of result
+                        if ( fa.s() == fb.s() ) {
+                            result.setS(1);
+                        }
+                        else {
+                            result.setS(-1);
+                        }
                         return result.asInt();
-                    }
-                    else {
-                        result = fb;
-                        return result.asInt();
-                    }
+                }
+                else {
+                    System.out.println("No exceptions detected");
                 }
                 
                 //2. Sort numbers
                 //Remember that denormalized number '0' is the only test case
                 
+                //3. Multiply the significands
                 
-                //Setting result sign
-                if ( fa.s() == 1 && fb.s() == 1 || fa.s() == -1 && fb.s() == -1 ) {
+                //4. Normalize and round
+                
+                //Setting sign of result
+                if ( fa.s() == fb.s() ) {
                     result.setS(1);
                 }
                 else {
