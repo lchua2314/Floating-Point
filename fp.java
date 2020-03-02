@@ -65,7 +65,7 @@ public class fp
                       else {
                           //Setting result to NaN
                           result.setE( 255 );
-                          result.setF( 1 );
+                          result.setF( 12 );
                           //Setting result's sign to either sign (fa's)
                           result.setS( fa.s() );
                           return result.asInt();
@@ -135,7 +135,7 @@ public class fp
                       else {
                           //Setting result to NaN
                           result.setE( 255 );
-                          result.setF( 1 );
+                          result.setF( 12 );
                           //Setting result's sign to either sign (fa's)
                           result.setS( fa.s() );
                           return result.asInt();
@@ -155,23 +155,33 @@ public class fp
                 //2. Sort numbers
                 //Remember that denormalized number '0' is the only test case
                 
+                
+                //Setting result sign
+                if ( fa.s() == 1 && fb.s() == 1 || fa.s() == -1 && fb.s() == -1 ) {
+                    result.setS(1);
+                }
+                else {
+                    result.setS(-1);
+                }
+                
 		return result.asInt();
 	}
-
-        //1. Handle exception values (NaN, zero, infinity)
-        public int checkExceptions(FPNumber fa, FPNumber fb)
-        {
-            if ( fa.isNaN() == true || fb.isNaN() == true )
-            {
-                return 1;
-            }
-            
-            
-            return 1;
-        }
         
         public boolean unitTest(  ) {
             return false;
+            //long long t = fa.f() + (fb.f() >> 3); //Add hint: aligning exponents
+            
+            /*
+            //When normalizing the value after an add, we need to see if the 27th bit is set,
+            //indicating an overflow. This test checks to see if the 27th bit is set:
+
+            //In other cases, you need to check bit 26, so you would shift by 25.
+            if ( ((t >> 26) & 1) == 1)
+                {
+                 // yes it is!
+                }
+            */
+            
         }
         
 	// Here is some test code that one student had written...
