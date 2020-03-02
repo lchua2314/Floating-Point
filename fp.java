@@ -197,6 +197,23 @@ public class fp
                     System.out.println("No overflow or underflow detected");
                 }
                 
+                //Multiply fractions
+                long newLongF = fa.f() * fb.f(); //52 bits long now
+                //Need to remove the bottom 25 bits
+                
+                //>> signed shift
+                //>>> unsigned shift
+                //I chose signed shift bc long declared is signed by default
+                
+                newLongF >>= 25;
+                
+                //To normalize the number, shift right 1 positon
+                newLongF >>= 1;
+                
+                //Then increment the expo
+                result.setE(result.e() + 1);
+                result.setF(newLongF);
+                
                 //2. Sort numbers
                 //Remember that denormalized number '0' is the only test case
                 
