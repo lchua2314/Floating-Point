@@ -219,11 +219,20 @@ public class fp
                 //Then increment the expo
                 result.setE(result.e() + 1);
                 
+                /*newLongF = modifyBit(newLongF, 21, 1);*/
+                
                 //Done, set the new F to the result
                 result.setF(newLongF);
                  
 		return result.asInt();
 	}
+        
+        /*// Returns modified n. 
+        public static long modifyBit(long n, int p, int b) 
+        { 
+            int mask = 1 << p; 
+            return (n & ~mask) | ((b << p) & mask); 
+        } */
         
         /**
          * Compute the added exponent without the 127 bias
