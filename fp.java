@@ -176,6 +176,8 @@ public class fp
                     result.setS(-1);
                 }
                 
+                //2. Sort numbers
+                //Remember that denormalized number '0' is the only test case
                 //Leading 1 and guard 0's already added to F field.
                 
                 //Adding exponents and subtracting -127 bc of bias
@@ -197,6 +199,8 @@ public class fp
                     System.out.println("No overflow or underflow detected");
                 }
                 
+                
+                //3. Multiply the significands
                 //Multiply fractions
                 long newLongF = fa.f() * fb.f(); //52 bits long now
                 //Need to remove the bottom 25 bits
@@ -204,52 +208,31 @@ public class fp
                 //>> signed shift
                 //>>> unsigned shift
                 //I chose signed shift bc long declared is signed by default
+                //It doesn't matter with the given test results
                 
                 newLongF >>= 25;
                 
+                //4. Normalize and round
                 //To normalize the number, shift right 1 positon
                 newLongF >>= 1;
                 
                 //Then increment the expo
                 result.setE(result.e() + 1);
+                
+                //Done, set the new F to the result
                 result.setF(newLongF);
-                
-                //2. Sort numbers
-                //Remember that denormalized number '0' is the only test case
-                
-                //3. Multiply the significands
-                
-                //4. Normalize and round
-                
-                
+                 
 		return result.asInt();
 	}
         
         /**
-         * 
+         * Compute the added exponent without the 127 bias
          * @param faIn fa Input
          * @param fbIn fb Input
          * @return Added integer value without the 127 bias.
          */
         public int addingExpo( FPNumber faIn, FPNumber fbIn ) {
             return faIn.e() + fbIn.e() - 127; //-127 once?
-        }
-        
-        public boolean unitTest(  ) {
-            return false;
-            //long long t = fa.f() + (fb.f() >> 3); //Add hint: aligning exponents
-            
-            /*
-            //When normalizing the value after an add, we need to see if the 27th bit is set,
-            //indicating an overflow. This test checks to see if the 27th bit is set:
-
-            //In other cases, you need to check bit 26, so you would shift by 25.
-            if ( ((t >> 26) & 1) == 1)
-                {
-                 // yes it is!
-                }
-            */
-            
         }
         
 	// Here is some test code that one student had written...
@@ -276,8 +259,11 @@ public class fp
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");
 
+                //Worked Fracction works / whole num issue
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v_1875)) + " should be -4.546875");
+                //-249.25 Fraction works
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v5)) + " should be -121.25");
+                //1.9375 Off by +1 Fraction works
 		System.out.println(Float.intBitsToFloat(m.mul(v_1875, v5)) + " should be 0.9375");
 	}
 }
