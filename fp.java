@@ -153,7 +153,6 @@ public class fp
                         return result.asInt();
                     }
                 }
-                //XOR?
                 else if ( fa.isInfinity() == true || fb.isInfinity() == true ) {
                         result = fa;
                         //Setting sign of result
@@ -169,13 +168,6 @@ public class fp
                     System.out.println("No exceptions detected");
                 }
                 
-                //2. Sort numbers
-                //Remember that denormalized number '0' is the only test case
-                
-                //3. Multiply the significands
-                
-                //4. Normalize and round
-                
                 //Setting sign of result
                 if ( fa.s() == fb.s() ) {
                     result.setS(1);
@@ -184,8 +176,47 @@ public class fp
                     result.setS(-1);
                 }
                 
+                //Leading 1 and guard 0's already added to F field.
+                
+                //Adding exponents and subtracting -127 bc of bias
+                result.setE(addingExpo(fa, fb));
+                
+                //Expo overflow -> Set result to Infinity
+                if ( result.e() > 254 ) {
+                    result.setE(5);
+                    result.setF(0);
+                    return result.asInt();
+                }
+                //Expo underflow -> Set result to 0
+                else if ( result.e() < 0 ) {
+                    result.setE(0);
+                    result.setF(0);                    
+                    return result.asInt();
+                }
+                else {
+                    System.out.println("No overflow or underflow detected");
+                }
+                
+                //2. Sort numbers
+                //Remember that denormalized number '0' is the only test case
+                
+                //3. Multiply the significands
+                
+                //4. Normalize and round
+                
+                
 		return result.asInt();
 	}
+        
+        /**
+         * 
+         * @param faIn fa Input
+         * @param fbIn fb Input
+         * @return Added integer value without the 127 bias.
+         */
+        public int addingExpo( FPNumber faIn, FPNumber fbIn ) {
+            return faIn.e() + fbIn.e() - 127; //-127 once?
+        }
         
         public boolean unitTest(  ) {
             return false;
