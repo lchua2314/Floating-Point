@@ -99,6 +99,7 @@ public class fp
                 }
                 else {
                     //Numbers are equal in expo
+                    //No shift in bits are required here when adding
                     if ( fa.f() > fb.f() ) {
                         FPNumber bigger = fa;
                         FPNumber smaller = fb;                        
