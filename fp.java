@@ -168,6 +168,8 @@ public class fp
                     System.out.println("No exceptions detected");
                 }
                 
+                //2. Normal assembly of S, E, and F.
+                
                 //Setting sign of result
                 if ( fa.s() == fb.s() ) {
                     result.setS(1);
@@ -176,7 +178,6 @@ public class fp
                     result.setS(-1);
                 }
                 
-                //2. Sort numbers
                 //Remember that denormalized number '0' is the only test case
                 //Leading 1 and guard 0's already added to F field.
                 
