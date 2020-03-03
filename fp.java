@@ -88,31 +88,52 @@ public class fp
                 //2. Sort numbers by higher value and lower value
                 //Check for denormalized number '0'
                 
+                //Initialize FPNumber bigger and smaller.
+                FPNumber bigger, smaller;
+                
                 //Finds out which is bigger and smaller and sets it to new FPNumber
+                //And assigns to FPNumber bigger or smaller
                 if ( fa.e() > fb.e() ) {
-                    FPNumber bigger = fa;
-                    FPNumber smaller = fb;
+                     bigger = fa;
+                     smaller = fb;
                 }
                 else if ( fa.e() < fb.e() ) {
-                    FPNumber smaller = fa;
-                    FPNumber bigger = fb;
+                     smaller = fa;
+                     bigger = fb;
                 }
                 else {
                     //Numbers are equal in expo
                     //No shift in bits are required here when adding
                     if ( fa.f() > fb.f() ) {
-                        FPNumber bigger = fa;
-                        FPNumber smaller = fb;                        
+                         bigger = fa;
+                         smaller = fb;                        
                     }
                     else if ( fa.f() < fb.f() ) {
-                        FPNumber smaller = fa;
-                        FPNumber bigger = fb;                        
+                         smaller = fa;
+                         bigger = fb;                        
                     }
                     else {
                         //Numbers are equal, but signs might be different
-                        FPNumber bigger = fa;
-                        FPNumber smaller = fb; 
+                         bigger = fa;
+                         smaller = fb; 
                     }
+                }
+                
+                //Still need to check the signs to see if add or sub
+                if ( bigger.s() == smaller.s() ) {
+                	//Signs are the same, therefore add both values
+                	
+                	//Assign any sign
+                	result.setS(bigger.s());
+                }
+                else {
+                	//Check if bigger is positive sign and smaller is negative sign
+                	if ( bigger.s() > smaller.s()  ) {
+                		
+                	}
+                	else {
+                		
+                	}
                 }
                 
                 //Checking which number is larger
@@ -306,14 +327,29 @@ public class fp
                 newLongF >>= 25;
                 
                 //4. Normalize and round
-                //To normalize the number, shift right 1 positon
-                newLongF >>= 1;
+                //Dont always normalize
+                //Check if set first.
                 
-                //Then increment the expo
-                result.setE(result.e() + 1);
+                //When normalizing the value after an add, we need to see if the 27th bit is set,
+                //indicating an overflow. This test checks to see if the 27th bit is set:
+                if ( ((newLongF >> 26) & 1) == 1)
+                {
+                    // 27th bit is set
+                    //To normalize the number, shift right 1 positon
+                    newLongF >>= 1;
+                    
+                    //Then increment the expo
+                    result.setE(result.e() + 1);
+                    
+                    //Done, set the new F to the result
+                    result.setF(newLongF);
+                    
+                	return result.asInt();
+                }
                 
                 /*newLongF = modifyBit(newLongF, 21, 1);*/
                 
+                System.out.println("newLongF: " + newLongF);
                 //Done, set the new F to the result
                 result.setF(newLongF);
                  
