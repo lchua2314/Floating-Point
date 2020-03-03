@@ -88,6 +88,32 @@ public class fp
                 //2. Sort numbers by higher value and lower value
                 //Check for denormalized number '0'
                 
+                //Finds out which is bigger and smaller and sets it to new FPNumber
+                if ( fa.e() > fb.e() ) {
+                    FPNumber bigger = fa;
+                    FPNumber smaller = fb;
+                }
+                else if ( fa.e() < fb.e() ) {
+                    FPNumber smaller = fa;
+                    FPNumber bigger = fb;
+                }
+                else {
+                    //Numbers are equal in expo
+                    if ( fa.f() > fb.f() ) {
+                        FPNumber bigger = fa;
+                        FPNumber smaller = fb;                        
+                    }
+                    else if ( fa.f() < fb.f() ) {
+                        FPNumber smaller = fa;
+                        FPNumber bigger = fb;                        
+                    }
+                    else {
+                        //Numbers are equal, but signs might be different
+                        FPNumber bigger = fa;
+                        FPNumber smaller = fb; 
+                    }
+                }
+                
                 //Checking which number is larger
                 if ( fa.e() > fb.e() ) {
                     //Found difference  
