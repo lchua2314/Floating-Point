@@ -85,7 +85,72 @@ public class fp
                     System.out.println("No exceptions detected");
                 }
                 
-                //2. Sort numbers
+                //2. Sort numbers by higher value and lower value
+                //Check for denormalized number '0'
+                
+                //Checking which number is larger
+                if ( fa.e() > fb.e() ) {
+                    //Found difference  
+                    int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
+                    
+                    //However, if the difference between A's exponent and B's is greater than 24,
+                    //we will have shifted all the bits of B out, so we would be adding zero to A.
+                    //Consequently, if the difference is greater than 24, we simply return A's value.
+                    if ( newExpoDiff > 24 ) {
+                        result = fa;
+                        return result.asInt();
+                    }
+                    else {
+                        System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
+                    }
+                    
+                    //Need to determine if adding or subtracting
+                    if ( fa.s() == fb.s() ) {
+                        //Adding
+                        
+                        //Set the sign since we know it right now
+                        result.setS(fa.s());
+                        
+                        //Shift fb's fraction before adding to new fraction.
+                        long newFrac = fa.f() + (fb.f() >> newExpoDiff);
+                        
+                        //The new exponent will be the same as the larger expo (this case fa's)
+                        result.setE(fa.e());
+                                               
+                        //When normalizing the value after an add, we need to see if the 27th bit is set,
+                        //indicating an overflow. This test checks to see if the 27th bit is set:
+                        if ( ((newFrac >> 26) & 1) == 1)
+                        {
+                            // yes it is!
+                        }
+                        
+                    }
+                    else {
+                        //Subtracting
+                        
+                        //If the resulting mantissa is 0, (only happens in subtract), return 0 with Asign.
+                    }
+                    
+                    
+                }
+                else if ( fa.e() < fb.e() ) {
+
+                }
+                else {
+                    if ( fa.f() > fb.f() ) {
+                        
+                    }
+                    else if ( fa.f() < fb.f() ) {
+                        
+                    }
+                    else {
+                        
+                    }
+                }
+                
+                //3. Align exponents
+                //4. Add or subtract
+                //5. Normalize and round
                 
 		return result.asInt();
 	}
@@ -182,7 +247,7 @@ public class fp
                 //Leading 1 and guard 0's already added to F field.
                 
                 //Adding exponents and subtracting -127 bc of bias
-                result.setE(addingExpo(fa, fb));
+                result.setE(addExpo(fa, fb));
                 
                 //Expo overflow -> Set result to Infinity
                 if ( result.e() > 254 ) {
@@ -228,6 +293,10 @@ public class fp
 		return result.asInt();
 	}
         
+        private int subExpo(int faE, int fbE) {
+            return faE - fbE; 
+        }
+        
         /*// Returns modified n. 
         public static long modifyBit(long n, int p, int b) 
         { 
@@ -241,7 +310,7 @@ public class fp
          * @param fbIn fb Input
          * @return Added integer value without the 127 bias.
          */
-        public int addingExpo( FPNumber faIn, FPNumber fbIn ) {
+        private int addExpo( FPNumber faIn, FPNumber fbIn ) {
             return faIn.e() + fbIn.e() - 127; //-127 once?
         }
         
