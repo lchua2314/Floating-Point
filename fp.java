@@ -453,7 +453,7 @@ public class fp
 		int v_1875	= 0xBE400000; // -0.1875
 		//int v_1875 = 0x0;
 		//int v5		= 0xC0A00000; // -5.0
-		//int v5 = 0x0000221E; //Infinity?
+		int v5 = 0x0000221E; //Infinity?
 		//int v5 = Integer.parseInt(Integer.toHexString(1000));
 		
 		fp m = new fp();
@@ -461,7 +461,6 @@ public class fp
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");
-
 
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v_1875)) + " should be -4.546875");
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v5)) + " should be -121.25");
