@@ -121,7 +121,7 @@ public class fp
                 //Still need to check the signs to see if add or sub
                 if ( bigger.s() == smaller.s() ) {
                 	//Signs are the same, therefore add both values
-                	
+                	System.out.println("signs are the same");
                 	//Assign any sign
                 	result.setS(bigger.s());
                 	
