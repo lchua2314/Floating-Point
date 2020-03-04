@@ -126,7 +126,7 @@ public class fp
                 	result.setS(bigger.s());
                 	
                 	//Found difference  
-                    int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
+                    int newExpoDiff = Math.abs( subExpo( bigger.e(), smaller.e() ));
                     
                     //However, if the difference between A's exponent and B's is greater than 24,
                     //we will have shifted all the bits of B out, so we would be adding zero to A.
@@ -150,6 +150,7 @@ public class fp
                     //indicating an overflow. This test checks to see if the 27th bit is set:
                     if ( ((newFrac >> 26) & 1) == 1)
                     {
+                    	System.out.println("NORMALIZE");
                         // 27th bit is set
                         //To normalize the number, shift right 1 positon
                         newFrac >>= 1;
@@ -200,6 +201,7 @@ public class fp
                         //indicating an overflow. This test checks to see if the 27th bit is set:
                         if ( ((newFrac >> 26) & 1) == 1)
                         {
+                        	System.out.println("NORMALIZE");
                             // 27th bit is set
                             //To normalize the number, shift right 1 positon
                             newFrac >>= 1;
@@ -248,6 +250,7 @@ public class fp
                         //indicating an overflow. This test checks to see if the 27th bit is set:
                         if ( ((newFrac >> 26) & 1) == 1)
                         {
+                        	System.out.println("NORMALIZE");
                             // 27th bit is set
                             //To normalize the number, shift right 1 positon
                             newFrac >>= 1;
@@ -344,7 +347,7 @@ public class fp
                         return result.asInt();
                 }
                 else {
-                    System.out.println("No exceptions detected");
+                    //System.out.println("No exceptions detected");
                 }
                 
                 //2. Normal assembly of S, E, and F.
@@ -376,7 +379,7 @@ public class fp
                     return result.asInt();
                 }
                 else {
-                    System.out.println("No overflow or underflow detected");
+                    //System.out.println("No overflow or underflow detected");
                 }
                 
                 
@@ -441,27 +444,15 @@ public class fp
 		int v5		= 0xC0A00000; // -5.0
 
 		fp m = new fp();
-
-                //Prints out really long numbers
-                System.out.println(v24_25);
-                System.out.println(v_1875);
-                System.out.println(v5);
                 
-                //Prints out values that are float
-                System.out.println(Float.intBitsToFloat(v24_25));
-                System.out.println(Float.intBitsToFloat(v_1875));
-                System.out.println(Float.intBitsToFloat(v5));
-                
-                //All test cases print out "0.0" because methods are not finished yet.
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
+		//Error in which whole and fractions are not working
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");
 
-                //Worked Fracction works / whole num issue
+
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v_1875)) + " should be -4.546875");
-                //-249.25 Fraction works
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v5)) + " should be -121.25");
-                //1.9375 Off by +1 Fraction works
 		System.out.println(Float.intBitsToFloat(m.mul(v_1875, v5)) + " should be 0.9375");
 	}
 }
