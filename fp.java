@@ -144,7 +144,7 @@ public class fp
                     long newFrac = bigger.f() + (smaller.f() >> newExpoDiff);
                     
                     //The new exponent will be the same as the larger expo (this case fa's)
-                    result.setE(fa.e());
+                    result.setE(bigger.e());
                                            
                   //When normalizing the value after an add, we need to see if the 27th bit is set,
                     //indicating an overflow. This test checks to see if the 27th bit is set:
@@ -195,7 +195,7 @@ public class fp
                         long newFrac = bigger.f() - (smaller.f() >> newExpoDiff);
                         
                         //The new exponent will be the same as the larger expo (this case fa's)
-                        result.setE(fa.e());
+                        result.setE(bigger.e());
                                                
                       //When normalizing the value after an add, we need to see if the 27th bit is set,
                         //indicating an overflow. This test checks to see if the 27th bit is set:
@@ -244,7 +244,7 @@ public class fp
                         long newFrac = bigger.f() - (smaller.f() >> newExpoDiff);
                         
                         //The new exponent will be the same as the larger expo (this case fa's)
-                        result.setE(fa.e());
+                        result.setE(bigger.e());
                                                
                       //When normalizing the value after an add, we need to see if the 27th bit is set,
                         //indicating an overflow. This test checks to see if the 27th bit is set:
@@ -447,7 +447,6 @@ public class fp
                 
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
-		//Error in which whole and fractions are not working
 		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");
 
 
