@@ -453,7 +453,8 @@ public class fp
 		int v_1875	= 0xBE400000; // -0.1875
 		//int v_1875 = 0x0;
 		//int v5		= 0xC0A00000; // -5.0
-		int v5 = 0x221E;
+		//int v5 = 0x0000221E; //Infinity?
+		//int v5 = Integer.parseInt(Integer.toHexString(1000));
 		
 		fp m = new fp();
                 
