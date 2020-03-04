@@ -86,7 +86,6 @@ public class fp
                 }
                 
                 //2. Sort numbers by higher value and lower value
-                //Check for denormalized number '0'
                 
                 //Initialize FPNumber bigger and smaller.
                 FPNumber bigger, smaller;
@@ -125,20 +124,8 @@ public class fp
                 	
                 	//Assign any sign
                 	result.setS(bigger.s());
-                }
-                else {
-                	//Check if bigger is positive sign and smaller is negative sign
-                	if ( bigger.s() > smaller.s()  ) {
-                		
-                	}
-                	else {
-                		
-                	}
-                }
-                
-                //Checking which number is larger
-                if ( fa.e() > fb.e() ) {
-                    //Found difference  
+                	
+                	//Found difference  
                     int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
                     
                     //However, if the difference between A's exponent and B's is greater than 24,
@@ -151,56 +138,135 @@ public class fp
                     else {
                         System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
                     }
+                    //Adding
                     
-                    //Need to determine if adding or subtracting
-                    if ( fa.s() == fb.s() ) {
+                    //Shift fb's fraction before adding to new fraction.
+                    long newFrac = bigger.f() + (smaller.f() >> newExpoDiff);
+                    
+                    //The new exponent will be the same as the larger expo (this case fa's)
+                    result.setE(fa.e());
+                                           
+                  //When normalizing the value after an add, we need to see if the 27th bit is set,
+                    //indicating an overflow. This test checks to see if the 27th bit is set:
+                    if ( ((newFrac >> 26) & 1) == 1)
+                    {
+                        // 27th bit is set
+                        //To normalize the number, shift right 1 positon
+                        newFrac >>= 1;
+                        
+                        //Then increment the expo
+                        result.setE(result.e() + 1);
+                        
+                        //Done, set the new F to the result
+                        result.setF(newFrac);
+                        
+                    	return result.asInt();
+                    }
+                    
+                    //Done, set the new F to the result
+                    result.setF(newFrac);
+                     
+                    return result.asInt();
+                }
+                else {
+                	//Subtracting
+                	//Check if bigger is positive sign and smaller is negative sign
+                	if ( bigger.s() > smaller.s()  ) {
+                		//Sign should be positive
+                		result.setS(1);
+                		
+                    	//Found difference  
+                        int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
+                        
+                        //However, if the difference between A's exponent and B's is greater than 24,
+                        //we will have shifted all the bits of B out, so we would be adding zero to A.
+                        //Consequently, if the difference is greater than 24, we simply return A's value.
+                        if ( newExpoDiff > 24 ) {
+                            result = fa;
+                            return result.asInt();
+                        }
+                        else {
+                            System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
+                        }
                         //Adding
                         
-                        //Set the sign since we know it right now
-                        result.setS(fa.s());
-                        
-                        //Shift fb's fraction before adding to new fraction.
-                        long newFrac = fa.f() + (fb.f() >> newExpoDiff);
+                        //Shift fb's fraction before subtracting to new fraction.
+                        long newFrac = bigger.f() - (smaller.f() >> newExpoDiff);
                         
                         //The new exponent will be the same as the larger expo (this case fa's)
                         result.setE(fa.e());
                                                
-                        //When normalizing the value after an add, we need to see if the 27th bit is set,
+                      //When normalizing the value after an add, we need to see if the 27th bit is set,
                         //indicating an overflow. This test checks to see if the 27th bit is set:
                         if ( ((newFrac >> 26) & 1) == 1)
                         {
-                            // yes it is!
+                            // 27th bit is set
+                            //To normalize the number, shift right 1 positon
+                            newFrac >>= 1;
+                            
+                            //Then increment the expo
+                            result.setE(result.e() + 1);
+                            
+                            //Done, set the new F to the result
+                            result.setF(newFrac);
+                            
+                        	return result.asInt();
                         }
                         
-                    }
-                    else {
-                        //Subtracting
+                        //Done, set the new F to the result
+                        result.setF(newFrac);
+                         
+                        return result.asInt();                		
+                	}
+                	else {
+                		//bigger is negative while smaller is positive
+                		//sign should be negative
+                		result.setS(-1);
+                		
+                    	//Found difference  
+                        int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
                         
-                        //If the resulting mantissa is 0, (only happens in subtract), return 0 with Asign.
-                    }
-                    
-                    
+                        //However, if the difference between A's exponent and B's is greater than 24,
+                        //we will have shifted all the bits of B out, so we would be adding zero to A.
+                        //Consequently, if the difference is greater than 24, we simply return A's value.
+                        if ( newExpoDiff > 24 ) {
+                            result = fa;
+                            return result.asInt();
+                        }
+                        else {
+                            System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
+                        }
+                        //Adding
+                        
+                        //Shift fb's fraction before subtracting to new fraction.
+                        long newFrac = bigger.f() - (smaller.f() >> newExpoDiff);
+                        
+                        //The new exponent will be the same as the larger expo (this case fa's)
+                        result.setE(fa.e());
+                                               
+                      //When normalizing the value after an add, we need to see if the 27th bit is set,
+                        //indicating an overflow. This test checks to see if the 27th bit is set:
+                        if ( ((newFrac >> 26) & 1) == 1)
+                        {
+                            // 27th bit is set
+                            //To normalize the number, shift right 1 positon
+                            newFrac >>= 1;
+                            
+                            //Then increment the expo
+                            result.setE(result.e() + 1);
+                            
+                            //Done, set the new F to the result
+                            result.setF(newFrac);
+                            
+                        	return result.asInt();
+                        }
+                        
+                        //Done, set the new F to the result
+                        result.setF(newFrac);
+                         
+                        return result.asInt();
+                	}
                 }
-                else if ( fa.e() < fb.e() ) {
-
-                }
-                else {
-                    if ( fa.f() > fb.f() ) {
-                        
-                    }
-                    else if ( fa.f() < fb.f() ) {
-                        
-                    }
-                    else {
-                        
-                    }
-                }
-                
-                //3. Align exponents
-                //4. Add or subtract
-                //5. Normalize and round
-                
-		return result.asInt();
 	}
 
         /**
@@ -347,9 +413,6 @@ public class fp
                 	return result.asInt();
                 }
                 
-                /*newLongF = modifyBit(newLongF, 21, 1);*/
-                
-                System.out.println("newLongF: " + newLongF);
                 //Done, set the new F to the result
                 result.setF(newLongF);
                  
@@ -359,13 +422,6 @@ public class fp
         private int subExpo(int faE, int fbE) {
             return faE - fbE; 
         }
-        
-        /*// Returns modified n. 
-        public static long modifyBit(long n, int p, int b) 
-        { 
-            int mask = 1 << p; 
-            return (n & ~mask) | ((b << p) & mask); 
-        } */
         
         /**
          * Compute the added exponent without the 127 bias
