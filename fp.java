@@ -122,6 +122,7 @@ public class fp
                 if ( bigger.s() == smaller.s() ) {
                 	//Signs are the same, therefore add both values
                 	System.out.println("signs are the same");
+                	
                 	//Assign any sign
                 	result.setS(bigger.s());
                 	
@@ -132,7 +133,7 @@ public class fp
                     //we will have shifted all the bits of B out, so we would be adding zero to A.
                     //Consequently, if the difference is greater than 24, we simply return A's value.
                     if ( newExpoDiff > 24 ) {
-                        result = fa;
+                        result = bigger;
                         return result.asInt();
                     }
                     else {
@@ -140,10 +141,10 @@ public class fp
                     }
                     //Adding
                     
-                    //Shift fb's fraction before adding to new fraction.
+                    //Shift smaller's fraction before adding to new fraction.
                     long newFrac = bigger.f() + (smaller.f() >> newExpoDiff);
                     
-                    //The new exponent will be the same as the larger expo (this case fa's)
+                    //The new exponent will be the same as the bigger expo
                     result.setE(bigger.e());
                                            
                   //When normalizing the value after an add, we need to see if the 27th bit is set,
@@ -177,7 +178,7 @@ public class fp
                 		result.setS(1);
                 		
                     	//Found difference  
-                        int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
+                        int newExpoDiff = Math.abs( subExpo( bigger.e(), smaller.e() ));
                         
                         //However, if the difference between A's exponent and B's is greater than 24,
                         //we will have shifted all the bits of B out, so we would be adding zero to A.
@@ -191,10 +192,10 @@ public class fp
                         }
                         //Adding
                         
-                        //Shift fb's fraction before subtracting to new fraction.
+                        //Shift smaller's fraction before subtracting to new fraction.
                         long newFrac = bigger.f() - (smaller.f() >> newExpoDiff);
                         
-                        //The new exponent will be the same as the larger expo (this case fa's)
+                        //The new exponent will be the same as the bigger expo
                         result.setE(bigger.e());
                                                
                       //When normalizing the value after an add, we need to see if the 27th bit is set,
@@ -226,13 +227,13 @@ public class fp
                 		result.setS(-1);
                 		
                     	//Found difference  
-                        int newExpoDiff = Math.abs( subExpo( fa.e(), fb.e() ));
+                        int newExpoDiff = Math.abs( subExpo( bigger.e(), smaller.e() ));
                         
                         //However, if the difference between A's exponent and B's is greater than 24,
                         //we will have shifted all the bits of B out, so we would be adding zero to A.
                         //Consequently, if the difference is greater than 24, we simply return A's value.
                         if ( newExpoDiff > 24 ) {
-                            result = fa;
+                            result = bigger;
                             return result.asInt();
                         }
                         else {
@@ -240,10 +241,10 @@ public class fp
                         }
                         //Adding
                         
-                        //Shift fb's fraction before subtracting to new fraction.
+                        //Shift smaller's fraction before subtracting to new fraction.
                         long newFrac = bigger.f() - (smaller.f() >> newExpoDiff);
                         
-                        //The new exponent will be the same as the larger expo (this case fa's)
+                        //The new exponent will be the same as the bigger expo
                         result.setE(bigger.e());
                                                
                       //When normalizing the value after an add, we need to see if the 27th bit is set,
@@ -347,7 +348,7 @@ public class fp
                         return result.asInt();
                 }
                 else {
-                    //System.out.println("No exceptions detected");
+                    System.out.println("No exceptions detected");
                 }
                 
                 //2. Normal assembly of S, E, and F.
@@ -379,7 +380,7 @@ public class fp
                     return result.asInt();
                 }
                 else {
-                    //System.out.println("No overflow or underflow detected");
+                    System.out.println("No overflow or underflow detected");
                 }
                 
                 
