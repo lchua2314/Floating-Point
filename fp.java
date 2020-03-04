@@ -58,6 +58,7 @@ public class fp
                     }
                 }
                 else if ( fa.isInfinity() == true && fb.isInfinity() == true ) {
+                	System.out.println("CAUGHT INFINITY");
                       if ( fa.s() == fb.s() ) {
                           result = fa;
                           return result.asInt();
@@ -72,6 +73,7 @@ public class fp
                       }
                 }
                 else if ( fa.isInfinity() == true || fb.isInfinity() == true) {
+                	System.out.println("CAUGHT INFINITY2");
                     if ( fa.isInfinity() == true ) {
                         result = fa;
                         return result.asInt();
@@ -82,7 +84,7 @@ public class fp
                     }
                 }
                 else {
-                    System.out.println("No exceptions detected");
+                  //System.out.println("No exceptions detected");
                 }
                 
                 //2. Sort numbers by higher value and lower value
@@ -121,7 +123,7 @@ public class fp
                 //Still need to check the signs to see if add or sub
                 if ( bigger.s() == smaller.s() ) {
                 	//Signs are the same, therefore add both values
-                	System.out.println("signs are the same");
+                	//System.out.println("signs are the same");
                 	
                 	//Assign any sign
                 	result.setS(bigger.s());
@@ -137,7 +139,7 @@ public class fp
                         return result.asInt();
                     }
                     else {
-                        System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
+                      //System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
                     }
                     //Adding
                     
@@ -151,7 +153,7 @@ public class fp
                     //indicating an overflow. This test checks to see if the 27th bit is set:
                     if ( ((newFrac >> 26) & 1) == 1)
                     {
-                    	System.out.println("NORMALIZE");
+                    	//System.out.println("NORMALIZE");
                         // 27th bit is set
                         //To normalize the number, shift right 1 positon
                         newFrac >>= 1;
@@ -188,7 +190,7 @@ public class fp
                             return result.asInt();
                         }
                         else {
-                            System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
+                          //System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
                         }
                         //Adding
                         
@@ -202,7 +204,7 @@ public class fp
                         //indicating an overflow. This test checks to see if the 27th bit is set:
                         if ( ((newFrac >> 26) & 1) == 1)
                         {
-                        	System.out.println("NORMALIZE");
+                        	//System.out.println("NORMALIZE");
                             // 27th bit is set
                             //To normalize the number, shift right 1 positon
                             newFrac >>= 1;
@@ -237,7 +239,7 @@ public class fp
                             return result.asInt();
                         }
                         else {
-                            System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
+                          //System.out.println("Did not shifted all the bits out add() - > newExpoDiff");
                         }
                         //Adding
                         
@@ -251,7 +253,7 @@ public class fp
                         //indicating an overflow. This test checks to see if the 27th bit is set:
                         if ( ((newFrac >> 26) & 1) == 1)
                         {
-                        	System.out.println("NORMALIZE");
+                        	//System.out.println("NORMALIZE");
                             // 27th bit is set
                             //To normalize the number, shift right 1 positon
                             newFrac >>= 1;
@@ -289,70 +291,33 @@ public class fp
 
 		// Put your code in here!
                 
-                //1. Handle exception values (NaN, zero, infinity)
-                if ( fa.isNaN() == true || fb.isNaN() == true )
-                {
-                    if ( fa.isNaN() == true )
-                    {
-                        result = fa;
-                        return result.asInt();
-                    }
-                    else
-                    {
-                        result = fb;
-                        return result.asInt();
-                    }
-                }
-                else if ( fa.isZero() == true && fb.isInfinity() == true || 
-                        fb.isZero() == true && fa.isInfinity() == true ) {
-                    //Set result to NaN
-                    result.setE( 255 );
-                    result.setF( 12 );
-                    //Setting result's sign to either sign (fa's)
-                    result.setS( fa.s() );
-                    return result.asInt();
-                }
-                else if ( fa.isZero() == true || fb.isZero() == true) {
-                    if ( fa.isZero() == true ) {
-                        result = fb;
-                        //Setting sign of result
-                        if ( fa.s() == fb.s() ) {
-                            result.setS(1);
-                        }
-                        else {
-                            result.setS(-1);
-                        }
-                        return result.asInt();
-                    }
-                    else {
-                        result = fa;
-                        //Setting sign of result
-                        if ( fa.s() == fb.s() ) {
-                            result.setS(1);
-                        }
-                        else {
-                            result.setS(-1);
-                        }
-                        return result.asInt();
-                    }
-                }
-                else if ( fa.isInfinity() == true || fb.isInfinity() == true ) {
-                        result = fa;
-                        //Setting sign of result
-                        if ( fa.s() == fb.s() ) {
-                            result.setS(1);
-                        }
-                        else {
-                            result.setS(-1);
-                        }
-                        return result.asInt();
-                }
-                else {
-                    System.out.println("No exceptions detected");
-                }
-                
-                //2. Normal assembly of S, E, and F.
-                
+        //1. Handle exception values (NaN, zero, infinity)
+        if ( fa.isNaN() == true || fb.isNaN() == true )
+        {
+            if ( fa.isNaN() == true )
+            {
+                result = fa;
+                return result.asInt();
+            }
+            else
+            {
+                result = fb;
+                return result.asInt();
+            }
+        }
+        else if ( fa.isZero() == true && fb.isInfinity() == true || 
+                fb.isZero() == true && fa.isInfinity() == true ) {
+        	System.out.println("CAUGHT INFINITYMULT");
+            //Set result to NaN
+            result.setE( 255 );
+            result.setF( 12 );
+            //Setting result's sign to either sign (fa's)
+            result.setS( fa.s() );
+            return result.asInt();
+        }
+        else if ( fa.isZero() == true || fb.isZero() == true) {
+            if ( fa.isZero() == true ) {
+                result = fb;
                 //Setting sign of result
                 if ( fa.s() == fb.s() ) {
                     result.setS(1);
@@ -360,69 +325,113 @@ public class fp
                 else {
                     result.setS(-1);
                 }
-                
-                //Remember that denormalized number '0' is the only test case
-                //Leading 1 and guard 0's already added to F field.
-                
-                //Adding exponents and subtracting -127 bc of bias
-                result.setE(addExpo(fa, fb));
-                
-                //Expo overflow -> Set result to Infinity
-                if ( result.e() > 254 ) {
-                    result.setE(5);
-                    result.setF(0);
-                    return result.asInt();
-                }
-                //Expo underflow -> Set result to 0
-                else if ( result.e() < 0 ) {
-                    result.setE(0);
-                    result.setF(0);                    
-                    return result.asInt();
+                return result.asInt();
+            }
+            else {
+                result = fa;
+                //Setting sign of result
+                if ( fa.s() == fb.s() ) {
+                    result.setS(1);
                 }
                 else {
-                    System.out.println("No overflow or underflow detected");
+                    result.setS(-1);
                 }
-                
-                
-                //3. Multiply the significands
-                //Multiply fractions
-                long newLongF = fa.f() * fb.f(); //52 bits long now
-                //Need to remove the bottom 25 bits
-                
-                //>> signed shift
-                //>>> unsigned shift
-                //I chose signed shift bc long declared is signed by default
-                //It doesn't matter with the given test results
-                
-                newLongF >>= 25;
-                
-                //4. Normalize and round
-                //Dont always normalize
-                //Check if set first.
-                
-                //When normalizing the value after an add, we need to see if the 27th bit is set,
-                //indicating an overflow. This test checks to see if the 27th bit is set:
-                if ( ((newLongF >> 26) & 1) == 1)
-                {
-                    // 27th bit is set
-                    //To normalize the number, shift right 1 positon
-                    newLongF >>= 1;
-                    
-                    //Then increment the expo
-                    result.setE(result.e() + 1);
-                    
-                    //Done, set the new F to the result
-                    result.setF(newLongF);
-                    
-                	return result.asInt();
+                return result.asInt();
+            }
+        }
+        else if ( fa.isInfinity() == true || fb.isInfinity() == true ) {
+        	System.out.println("CAUGHT INFINITYMULT2");
+                result = fa;
+                //Setting sign of result
+                if ( fa.s() == fb.s() ) {
+                    result.setS(1);
                 }
-                
-                //Done, set the new F to the result
-                result.setF(newLongF);
+                else {
+                    result.setS(-1);
+                }
+                return result.asInt();
+        }
+        else {
+          //System.out.println("No exceptions detected");
+        }
+        
+        //2. Normal assembly of S, E, and F.
+        
+        //Setting sign of result
+        if ( fa.s() == fb.s() ) {
+            result.setS(1);
+        }
+        else {
+            result.setS(-1);
+        }
+        
+        //Remember that denormalized number '0' is the only test case
+        //Leading 1 and guard 0's already added to F field.
+        
+        //Adding exponents and subtracting -127 bc of bias
+        result.setE(addExpo(fa, fb));
+        
+        //Expo overflow -> Set result to Infinity
+        if ( result.e() > 254 ) {
+            result.setE(5);
+            result.setF(0);
+            return result.asInt();
+        }
+        //Expo underflow -> Set result to 0
+        else if ( result.e() < 0 ) {
+            result.setE(0);
+            result.setF(0);                    
+            return result.asInt();
+        }
+        else {
+          //System.out.println("No overflow or underflow detected");
+        }
+        
+        
+        //3. Multiply the significands
+        //Multiply fractions
+        long newLongF = fa.f() * fb.f(); //52 bits long now
+        //Need to remove the bottom 25 bits
+        
+        //>> signed shift
+        //>>> unsigned shift
+        //I chose signed shift bc long declared is signed by default
+        //It doesn't matter with the given test results
+        
+        newLongF >>= 25;
+        
+        //4. Normalize and round
+        //Dont always normalize
+        //Check if set first.
+        
+        //When normalizing the value after an add, we need to see if the 27th bit is set,
+        //indicating an overflow. This test checks to see if the 27th bit is set:
+        if ( ((newLongF >> 26) & 1) == 1)
+        {
+            // 27th bit is set
+            //To normalize the number, shift right 1 positon
+            newLongF >>= 1;
+            
+            //Then increment the expo
+            result.setE(result.e() + 1);
+            
+            //Done, set the new F to the result
+            result.setF(newLongF);
+            
+        	return result.asInt();
+        }
+        
+        //Done, set the new F to the result
+        result.setF(newLongF);
                  
 		return result.asInt();
 	}
-        
+        /**
+         * Subtracts give exponents. Does NOT absolute value the answer.
+         * @param faE
+         * @param fbE
+         * @return The difference between faE and fbE
+         */
         private int subExpo(int faE, int fbE) {
             return faE - fbE; 
         }
@@ -442,8 +451,10 @@ public class fp
 	{
 		int v24_25	= 0x41C20000; // 24.25
 		int v_1875	= 0xBE400000; // -0.1875
-		int v5		= 0xC0A00000; // -5.0
-
+		//int v_1875 = 0x0;
+		//int v5		= 0xC0A00000; // -5.0
+		int v5 = 0x221E;
+		
 		fp m = new fp();
                 
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
