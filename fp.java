@@ -317,7 +317,7 @@ public class fp
         }
         else if ( fa.isZero() == true || fb.isZero() == true) {
             if ( fa.isZero() == true ) {
-                result = fb;
+                result = fa;
                 //Setting sign of result
                 if ( fa.s() == fb.s() ) {
                     result.setS(1);
@@ -328,7 +328,7 @@ public class fp
                 return result.asInt();
             }
             else {
-                result = fa;
+                result = fb;
                 //Setting sign of result
                 if ( fa.s() == fb.s() ) {
                     result.setS(1);
@@ -341,15 +341,21 @@ public class fp
         }
         else if ( fa.isInfinity() == true || fb.isInfinity() == true ) {
         	System.out.println("CAUGHT INFINITYMULT2");
-                result = fa;
-                //Setting sign of result
-                if ( fa.s() == fb.s() ) {
-                    result.setS(1);
-                }
-                else {
-                    result.setS(-1);
-                }
-                return result.asInt();
+        	if ( fa.isInfinity() == true) {
+        		result = fa;
+        	}
+        	else {
+        		result = fb;
+        	}
+                
+            //Setting sign of result
+            if ( fa.s() == fb.s() ) {
+                result.setS(1);
+            }
+            else {
+                result.setS(-1);
+            }
+            return result.asInt();
         }
         else {
           //System.out.println("No exceptions detected");
@@ -451,11 +457,8 @@ public class fp
 	{
 		int v24_25	= 0x41C20000; // 24.25
 		int v_1875	= 0xBE400000; // -0.1875
-		//int v_1875 = 0x0;
-		//int v5		= 0xC0A00000; // -5.0
-		int v5 = 0x0000221E; //Infinity?
-		//int v5 = Integer.parseInt(Integer.toHexString(1000));
-		
+		int v5		= 0xC0A00000; // -5.0
+
 		fp m = new fp();
                 
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
