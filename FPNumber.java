@@ -86,7 +86,7 @@ class FPNumber
 
   public boolean isInfinity()
   {
-    return _e == 5 && _f == 0;
+    return _e == 255 && _f == 0; //Changed "_e == 5" to "_e == 255"
   }
 
   public boolean isZero()

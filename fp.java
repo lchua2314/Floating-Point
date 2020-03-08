@@ -462,8 +462,8 @@ public class fp
 
 		FPNumber naN = new FPNumber(0);
 		naN.setS(-1);
-		naN.setE(500000999);
-		naN.setF(500000990);
+		naN.setE(255);
+		naN.setF(0);
 		System.out.println(naN.asInt());
 		System.out.println(naN.isInfinity());
 		System.out.println(Float.intBitsToFloat(naN.asInt()));
@@ -472,11 +472,11 @@ public class fp
                 
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v_1875)) + " should be 24.0625");
 		System.out.println(Float.intBitsToFloat(m.add(v24_25, v5)) + " should be 19.25");
-		System.out.println(Float.intBitsToFloat(m.add(v_1875, v5)) + " should be -5.1875");
+		System.out.println(Float.intBitsToFloat(m.add(naN.asInt(), v5)) + " should be -5.1875");
 
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v_1875)) + " should be -4.546875");
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v5)) + " should be -121.25");
-		System.out.println(Float.intBitsToFloat(m.mul(v_1875, v5)) + " should be 0.9375");
+		System.out.println(Float.intBitsToFloat(m.mul(naN.asInt(), v5)) + " should be 0.9375");
 		
 	}
 }
