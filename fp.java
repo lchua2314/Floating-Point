@@ -58,15 +58,15 @@ public class fp
                     }
                 }
                 else if ( fa.isInfinity() == true && fb.isInfinity() == true ) {
-                	//System.out.println("CAUGHT INFINITY");
+//                	System.out.println("CAUGHT INFINITY");
                       if ( fa.s() == fb.s() ) {
                           result = fa;
                           return result.asInt();
                       }
-                      else {
+                      else { 
                           //Setting result to NaN
                           result.setE( 255 );
-                          result.setF( 123 );
+                          result.setF( 12 );
                           //Setting result's sign to either sign (fa's)
                           result.setS( fa.s() );
                           return result.asInt();
@@ -75,6 +75,8 @@ public class fp
                 else if ( fa.isInfinity() == true || fb.isInfinity() == true) {
                 	//System.out.println("CAUGHT INFINITY2");
                     if ( fa.isInfinity() == true ) {
+//                        System.out.println(fa.isInfinity());
+//                        System.out.println(fb.isInfinity());
                         result = fa;
                         return result.asInt();
                     }
@@ -455,7 +457,6 @@ public class fp
 	// Here is some test code that one student had written...
 	public static void main(String[] args)
 	{
-		
 		int v24_25	= 0x41C20000; // 24.25
 		int v_1875	= 0xBE400000; // -0.1875
 		int v5 		= 0xC0A00000; // -5.0
@@ -476,7 +477,6 @@ public class fp
 
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v_1875)) + " should be -4.546875");
 		System.out.println(Float.intBitsToFloat(m.mul(v24_25, v5)) + " should be -121.25");
-		System.out.println(Float.intBitsToFloat(m.mul(naN.asInt(), v5)) + " should be 0.9375");
-		
+		System.out.println(Float.intBitsToFloat(m.mul(naN.asInt(), v5)) + " should be 0.9375");		
 	}
 }
